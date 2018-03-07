@@ -1,6 +1,7 @@
 import React from 'react'
 
 const AddTodo = ({ input, onSubmit, inputText }) => {
+	// let input;
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e, input)}>

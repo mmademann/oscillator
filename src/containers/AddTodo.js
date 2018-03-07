@@ -4,7 +4,7 @@ import AddTodo from '../components/AddTodo'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    inputText: 'Add Todo'
+    input: null
   }
 }
 
