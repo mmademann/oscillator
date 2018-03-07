@@ -15,7 +15,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (!input.value.trim()) {
         return
       }
-      dispatch(addTodo(input.value))
+      dispatch(
+        addTodo(
+          input.value
+        )
+      )
       input.value = ''
     }
   }
