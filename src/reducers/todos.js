@@ -32,7 +32,7 @@ const todos = (state = [], action) => {
 
 export default todos
 
-// state as a key/value obj instead of an array
+// // state as a key/value obj instead of an array
 // const stateObject = {
 //   ...state,
 //   [action.id]:
