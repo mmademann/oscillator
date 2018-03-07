@@ -8,6 +8,7 @@
     "react-scripts": "^1.0.2"
   },
   "dependencies": {
+    "immutability-helper": "^2.6.6",
     "immutable": "^3.8.2",
     "prop-types": "^15.5.10",
     "react": "^15.5.0",
