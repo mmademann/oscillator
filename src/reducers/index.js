@@ -3,8 +3,7 @@ import visibilityFilter from './visibilityFilter'
 import todos from './todos'
 
 const todoApp = combineReducers({
-  todos,
-  visibilityFilter
+	visibilityFilter, todos
 })
 
 export default todoApp

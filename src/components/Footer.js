@@ -1,12 +1,12 @@
 import React from 'react'
-import FilterLink from '../containers/FilterLink'
+import Link from '../containers/Link'
 
 const Footer = () => (
   <p>
     Show:{" "}
-    <FilterLink filter="SHOW_ALL">All</FilterLink>{" "}
-    <FilterLink filter="SHOW_ACTIVE">Active</FilterLink>{" "}
-    <FilterLink filter="SHOW_COMPLETED">Completed</FilterLink>
+    <Link filter="SHOW_ALL">All</Link>{" "}
+    <Link filter="SHOW_ACTIVE">Active</Link>{" "}
+    <Link filter="SHOW_COMPLETED">Completed</Link>
   </p>
 )
 
