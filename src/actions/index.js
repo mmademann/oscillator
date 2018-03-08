@@ -12,8 +12,8 @@ export const addOscillator = (frequency) => ({
 	type: 'ADD_OSCILLATOR', id: nextOscillatorId++, frequency
 })
 
-export const toggleSound = (value) => ({
-	type: 'TOGGLE_SOUND', value
+export const toggleSound = () => ({
+	type: 'TOGGLE_SOUND'
 })
 
 export const toggleTodo = (id) => ({

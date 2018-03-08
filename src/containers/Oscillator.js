@@ -26,12 +26,12 @@ const mapDispatchToProps = (dispatch, ownProps, state) => {
 			);
 			oscillator.connect(AUDIO_CONTEXT.destination);
 			oscillator.start();
-			dispatch(toggleSound(true))
+			dispatch(toggleSound())
 		},
 
 		onStop: id => {
 			if (oscillator) oscillator.stop();
-			dispatch(toggleSound(false))
+			dispatch(toggleSound())
 		}
 	}
 }

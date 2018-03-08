@@ -8,6 +8,12 @@ body p {
 	color:#888;
 }
 
+.add-oscillator input {
+	width:150px;
+	margin-right:10px;
+}
+
+.add-oscillator,
 .oscillator-row {
 	border:2px solid #fff;
 	margin: 1%;
