@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddOscillator = ({ input, onSubmit, inputText }) => {
+const AddOscillator = ({ input, onSubmit }) => {
     return (
         <div className="add-oscillator">
             <form onSubmit={(e) => onSubmit(e, input)}>

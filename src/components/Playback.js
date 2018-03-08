@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Playback = ({ onStart, onStop }) => (
+const Playback = ({ frequency, onStart, onStop }) => (
     <div className="control-row">
-        Oscillator
+        Oscillator {frequency} {" "}
         <button onClick={onStart}>Play</button>
         <button onClick={onStop}>Stop</button>
     </div>

@@ -5,10 +5,15 @@ import { AUDIO_CONTEXT } from '../actions'
 import Oscillator from '../components/Oscillator'
 
 const mapStateToProps = (state, ownProps) => {
-	return {}
+	console.log('state',state);
+	console.log('ownProps',ownProps);
+	return {
+		// id: state.id,
+		// frequency: state.frequency
+	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps, state) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	let oscillator;
 	let gainNode;
 
