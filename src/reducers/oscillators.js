@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-const oscillators = (state = [], action) => {
+const oscillatorsReducer = (state = [], action) => {
     switch (action.type) {
         case 'ADD_OSCILLATOR':
             return [
@@ -59,4 +59,4 @@ const oscillators = (state = [], action) => {
     }
 }
 
-export default oscillators
+export default oscillatorsReducer

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import oscillators from './oscillators'
 
-const todoApp = combineReducers({
+const oscillatorApp = combineReducers({
 	oscillators
 })
 
-export default todoApp
+export default oscillatorApp
