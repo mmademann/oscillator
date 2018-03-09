@@ -1,25 +1,27 @@
-let nextTodoId = 0
 let nextOscillatorId = 0
-let AudioContext = window.AudioContext || window.webkitAudioContext || null;
 
-export const AUDIO_CONTEXT = new AudioContext();
-
-export const addTodo = (text) => ({
-	type: 'ADD_TODO', id: nextTodoId++, text
+export const addOscillator = () => ({
+	type: 'ADD_OSCILLATOR', id: nextOscillatorId++
 })
 
-export const addOscillator = (frequency) => ({
-	type: 'ADD_OSCILLATOR', id: nextOscillatorId++, frequency
+export const togglePlayback = (playback, id) => ({
+	type: 'TOGGLE_PLAYBACK', playback, id
 })
 
-export const toggleSound = () => ({
-	type: 'TOGGLE_SOUND'
+export const updateWaveform = (waveform, id) => ({
+	type: 'UPDATE_WAVEFORM', waveform, id
 })
 
-export const toggleTodo = (id) => ({
-	type: 'TOGGLE_TODO', id
+export const updateFrequency = (frequency, id) => ({
+	type: 'UPDATE_FREQUENCY', frequency, id
 })
 
-export const setVisibilityFilter = (filter) => ({
-	type: 'SET_VISIBILITY_FILTER', filter
+export const updateTune = (tune, id) => ({
+	type: 'UPDATE_TUNE', tune, id
 })
+
+export const updateGain = (gain, id) => ({
+	type: 'UPDATE_GAIN', gain, id
+})
+
+export const AUDIO_CONTEXT = new (window.AudioContext || window.webkitAudioContext)()

@@ -10,17 +10,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        onSubmit: (e, input) => {
+        onSubmit: (e) => {
             e.preventDefault()
-            if (!input.value.trim()) {
-                return
-            }
-            dispatch(
-                addOscillator(
-                    input.value
-                )
-            )
-            input.value = ''
+            dispatch(addOscillator())
         }
     }
 }
