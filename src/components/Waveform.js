@@ -1,6 +1,15 @@
 import React from 'react'
+import { withHandlers } from 'recompose'
 
-const Waveform = ({ waveform, updateWaveform }) => {
+const Waveform = withHandlers({
+
+	updateWaveform: ({ id, updateWaveform }) => event => {
+		const wave = event.target.value
+
+		updateWaveform(wave, id)
+	}
+
+})(({ waveform, updateWaveform }) => {
 
 	const styleProp = (val) => {
 		return (waveform === val) ? '#f2f2f2' : '#ffffff'
@@ -35,6 +44,6 @@ const Waveform = ({ waveform, updateWaveform }) => {
 			</button>
 		</div>
 	)
-}
+})
 
 export default Waveform

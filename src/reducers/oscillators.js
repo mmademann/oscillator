@@ -1,59 +1,34 @@
-import update from 'immutability-helper';
+import { List, Map } from 'immutable'
 
-const oscillatorsReducer = (state = [], action) => {
+const oscillatorsReducer = (state = List(), action) => {
+
+	const index = state.findIndex(oscillator => oscillator.get('id') === action.id)
+
+	// TODO: make one updateOscillator function just do something like:
+	// return state.merge(action.payload) (pass an immutable Map() as the payload)
+	// then connect updateOscillator in OscillatorContainer (with mapDispatchToProps)
+	// pass updateOscillator to your smaller components (Playback, etc..) and you can remove
+	// their containers
     switch (action.type) {
         case 'ADD_OSCILLATOR':
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    waveform: 'sine',
-                    playback: false,
-                    frequency: 196,
-                    tune: 100,
-                    gain: 0
-                }
-            ]
+            return state.push(Map({
+                id: action.id,
+                waveform: 'sine',
+                playback: false,
+                frequency: 196,
+                tune: 100,
+                gain: 0
+            }))
         case 'TOGGLE_PLAYBACK':
-            return update(state, {
-              [action.id]: {
-                playback: {
-                  $set: action.playback
-                }
-              }
-            })
+            return state.setIn([index, 'playback'], action.playback)
         case 'UPDATE_WAVEFORM':
-            return update(state, {
-              [action.id]: {
-                waveform: {
-                  $set: action.waveform
-                }
-              }
-            })
+        	return state.setIn([index, 'waveform'], action.waveform)
         case 'UPDATE_FREQUENCY':
-        	return update(state, {
-        	  [action.id]: {
-        	    frequency: {
-        	      $set: action.frequency
-        	    }
-        	  }
-        	})
+        	return state.setIn([index, 'frequency'], action.frequency)
         case 'UPDATE_TUNE':
-        	return update(state, {
-        	  [action.id]: {
-        	    tune: {
-        	      $set: action.tune
-        	    }
-        	  }
-        	})
+        	return state.setIn([index, 'tune'], action.tune)
        	case 'UPDATE_GAIN':
-       		return update(state, {
-       		  [action.id]: {
-       		    gain: {
-       		      $set: action.gain
-       		    }
-       		  }
-       		})
+       		return state.setIn([index, 'gain'], action.gain)
         default:
             return state
     }

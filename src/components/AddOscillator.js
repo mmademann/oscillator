@@ -1,12 +1,17 @@
 import React from 'react'
+import { withHandlers } from 'recompose'
 
-const AddOscillator = ({ input, onSubmit }) => {
-    return (
-        <div className="add-oscillators">
-            <form onSubmit={onSubmit}>
-            	<button type="submit">Add Oscillator</button>
-            </form>
-        </div>
-    )
-}
+const AddOscillator = withHandlers({
+    onSubmit: ({ addOscillator }) => (e) => {
+        e.preventDefault()
+        addOscillator()
+    }
+})(({ onSubmit }) => (
+    <div className="add-oscillators">
+        <form onSubmit={onSubmit}>
+        	<button type="submit">Add Oscillator</button>
+        </form>
+    </div>
+))
+
 export default AddOscillator

@@ -1,9 +1,11 @@
 import { connect } from 'react-redux'
+
 import OscillatorList from '../components/OscillatorList'
+import { getOscillatorIds } from '../selectors/oscillators'
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        oscillators: state.oscillators
+        oscillatorIds: getOscillatorIds(state)
     }
 }
 
