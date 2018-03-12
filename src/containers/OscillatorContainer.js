@@ -13,8 +13,9 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 	});
 }
 
-const OscillatorContainer = connect(
-	makeMapStateToProps
-)(Oscillator)
+// const OscillatorContainer = connect(
+// 	makeMapStateToProps
+// )(Oscillator)
 
-export default OscillatorContainer
+// export default OscillatorContainer
+export default connect(makeMapStateToProps)(Oscillator)

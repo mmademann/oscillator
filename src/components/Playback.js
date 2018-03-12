@@ -3,16 +3,17 @@ import React from 'react'
 class Playback extends React.Component {
 
 	startPlayback = event => {
-
 		const { oscId, togglePlayback } = this.props;
 
 		togglePlayback(true, oscId)
 	};
 
 	stopPlayback = event => {
-		this.props.togglePlayback(
+		const { oscId, togglePlayback } = this.props;
+
+		togglePlayback(
 			false,
-			this.props.oscId
+			oscId
 		)
 	};
 
