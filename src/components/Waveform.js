@@ -3,10 +3,10 @@ import { withHandlers } from 'recompose'
 
 const Waveform = withHandlers({
 
-	updateWaveform: ({ id, updateWaveform }) => event => {
+	updateWaveform: ({ oscId, updateWaveform }) => event => {
 		const wave = event.target.value
 
-		updateWaveform(wave, id)
+		updateWaveform(wave, oscId)
 	}
 
 })(({ waveform, updateWaveform }) => {

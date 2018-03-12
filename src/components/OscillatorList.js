@@ -1,10 +1,10 @@
 import React from 'react'
-import Oscillator from '../containers/OscillatorContainer'
+import OscillatorContainer from '../containers/OscillatorContainer'
 
 const OscillatorList = ({ oscillatorIds }) => (
     <div>
     	{oscillatorIds.map(oscId =>
-	        <Oscillator
+	        <OscillatorContainer
 	            key={ `osc_${oscId}` }
 	            oscId={oscId}
 	        />

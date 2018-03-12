@@ -3,19 +3,19 @@ import { withHandlers } from 'recompose'
 
 const Frequency = withHandlers({
 
-	updateFrequency: ({ id, updateFrequency }) => event => {
+	updateFrequency: ({ oscId, updateFrequency }) => event => {
 		const freq = event.target.value
-		updateFrequency(freq, id)
+		updateFrequency(freq, oscId)
 	},
 
-	updateTune: ({ id, updateTune }) => event => {
+	updateTune: ({ oscId, updateTune }) => event => {
 		const finetune = event.target.value
-		updateTune(finetune, id)
+		updateTune(finetune, oscId)
 	},
 
-	updateGain: ({ id, updateGain }) => event => {
+	updateGain: ({ oscId, updateGain }) => event => {
 		const vol = event.target.value
-		updateGain(vol, id)
+		updateGain(vol, oscId)
 	}
 })(({
 	frequency,

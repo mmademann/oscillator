@@ -9,6 +9,7 @@ const oscillatorsReducer = (state = List(), action) => {
 	// then connect updateOscillator in OscillatorContainer (with mapDispatchToProps)
 	// pass updateOscillator to your smaller components (Playback, etc..) and you can remove
 	// their containers
+
     switch (action.type) {
         case 'ADD_OSCILLATOR':
             return state.push(Map({
