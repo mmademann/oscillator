@@ -1,5 +1,5 @@
 import React from 'react'
-import Oscillator from '../containers/Oscillator'
+import Oscillator from '../containers/OscillatorContainer'
 
 const OscillatorList = ({ oscillatorIds }) => (
     <div>
