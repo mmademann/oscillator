@@ -1,21 +1,18 @@
 import React from 'react'
 import { withHandlers } from 'recompose'
 
-const Waveform = withHandlers({
+const WaveformType = withHandlers({
 
-	updateWaveform: ({ oscId, updateWaveform }) => event => {
-		const wave = event.target.value
+	updateWaveformType: ({ oscId, updateWaveformType }) => event => {
+		const waveType = event.target.value
 
-		updateWaveform(wave, oscId)
+		updateWaveformType(waveType, oscId)
 	}
 
-})(({
-	waveform,
-	updateWaveform
-}) => {
+})(({ waveformType, updateWaveformType }) => {
 
 	const styleProp = (val) => {
-		return (waveform === val) ? '#f2f2f2' : '#ffffff'
+		return (waveformType === val) ? '#f2f2f2' : '#ffffff'
 	}
 
 	return (
@@ -24,29 +21,29 @@ const Waveform = withHandlers({
 			<button
 				style={{ backgroundColor: styleProp('sine') }}
 				value="sine"
-				onClick={updateWaveform}>
+				onClick={updateWaveformType}>
 				Sine
 			</button>
 			<button
 				style={{ backgroundColor: styleProp('sawtooth') }}
 				value="sawtooth"
-				onClick={updateWaveform}>
+				onClick={updateWaveformType}>
 				Saw
 			</button>
 			<button
 				style={{ backgroundColor: styleProp('triangle') }}
 				value="triangle"
-				onClick={updateWaveform}>
+				onClick={updateWaveformType}>
 				Tri
 			</button>
 			<button
 				style={{ backgroundColor: styleProp('square') }}
 				value="square"
-				onClick={updateWaveform}>
+				onClick={updateWaveformType}>
 				Square
 			</button>
 		</div>
 	)
 })
 
-export default Waveform
+export default WaveformType

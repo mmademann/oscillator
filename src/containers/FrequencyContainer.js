@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import {
 	updateFrequency,
-	updateTune,
+	updateDetune,
 	updateGain
 } from '../actions'
 
@@ -11,7 +11,7 @@ export default connect(
 	null,
 	{
 		updateFrequency,
-		updateTune,
+		updateDetune,
 		updateGain
 	}
 )(Frequency)

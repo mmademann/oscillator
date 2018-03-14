@@ -8,9 +8,9 @@ const Frequency = withHandlers({
 		updateFrequency(freq, oscId)
 	},
 
-	updateTune: ({ oscId, updateTune }) => event => {
-		const finetune = event.target.value
-		updateTune(finetune, oscId)
+	updateDetune: ({ oscId, updateDetune }) => event => {
+		const det = event.target.value
+		updateDetune(det, oscId)
 	},
 
 	updateGain: ({ oscId, updateGain }) => event => {
@@ -19,17 +19,17 @@ const Frequency = withHandlers({
 	}
 })(({
 	frequency,
-	tune,
+	detune,
 	gain,
 	updateFrequency,
-	updateTune,
+	updateDetune,
 	updateGain
 }) => (
     <div>
 		<div className="control-row">
 			<p>Frequency:</p>
 			<input
-				type="range" min="100" max="1450"
+				type="range" min="0" max="1300"
 				defaultValue={ frequency }
 				onInput={ updateFrequency }>
 			</input>
@@ -38,8 +38,8 @@ const Frequency = withHandlers({
 			<p>Fine Tune:</p>
 			<input
 				type="range" min="-100" max="100"
-				defaultValue={ tune }
-				onInput={ updateTune }>
+				defaultValue={ detune }
+				onInput={ updateDetune }>
 			</input>
 		</div>
 		<div className="control-row">

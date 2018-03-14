@@ -1,7 +1,7 @@
 import React from 'react'
 
 import PlaybackContainer from '../containers/PlaybackContainer'
-import WaveformContainer from '../containers/WaveformContainer'
+import WaveformTypeContainer from '../containers/WaveformTypeContainer'
 import FrequencyContainer from '../containers/FrequencyContainer'
 
 import { AUDIO_CONTEXT } from '../actions'
@@ -78,13 +78,13 @@ class Oscillator extends React.Component {
 	setOscillatorDetune() {
 		// set detune value from props => from state
 		this.oscillatorNode.detune.setValueAtTime(
-			this.props.oscillator.get('tune'),
+			this.props.oscillator.get('detune'),
 			AUDIO_CONTEXT.currentTime
 		)
 	}
 
 	setOscillatorType() {
-		this.oscillatorNode.type = this.props.oscillator.get('waveform')
+		this.oscillatorNode.type = this.props.oscillator.get('waveformType')
 	}
 
 	setGainValue() {
@@ -104,17 +104,17 @@ class Oscillator extends React.Component {
 					oscId={ oscId }
 					playback={ oscillator.get('playback') }
 				/>
-				<WaveformContainer
+				<WaveformTypeContainer
 					key={ `wave_${oscId}` }
 					oscId={ oscId }
-					waveform={ oscillator.get('waveform') }
+					waveformType={ oscillator.get('waveformType') }
 				/>
 				<FrequencyContainer
 					key={ `freq_${oscId}` }
 					oscId={ oscId }
 					frequency={ oscillator.get('frequency') }
 					gain={ oscillator.get('gain') }
-					tune={ oscillator.get('tune') }
+					detune={ oscillator.get('detune') }
 				/>
 			</div>
 		)

@@ -1,44 +1,45 @@
 import React from 'react'
+import { withHandlers } from 'recompose'
 
-class Playback extends React.Component {
+const Playback = withHandlers({
 
-	startPlayback = event => {
-		const { oscId, togglePlayback } = this.props;
+	startPlayback: ({ oscId, togglePlayback }) => event => {
+		const playback = true
 
-		togglePlayback(true, oscId)
-	};
+		togglePlayback(playback, oscId)
+	},
 
-	stopPlayback = event => {
-		const { oscId, togglePlayback } = this.props;
+	stopPlayback: ({ oscId, togglePlayback }) => event => {
+		const playback = false
 
-		togglePlayback(
-			false,
-			oscId
-		)
-	};
-
-	render() {
-		const { playback } = this.props;
-		const styleProp = (val) => {
-			return (val) ? '#f2f2f2' : '#ffffff'
-		}
-
-		return (
-		    <div className="control-row">
-		        Oscillator
-		        <button
-		        	style={{ backgroundColor: styleProp(playback) }}
-		        	onClick={ this.startPlayback }>
-		        	Play
-		        </button>
-		        <button
-		        	style={{ backgroundColor: styleProp(!playback) }}
-		        	onClick={ this.stopPlayback }>
-		        	Stop
-		        </button>
-		    </div>
-		)
+		togglePlayback(playback, oscId)
 	}
-}
+
+})(({
+	playback,
+	startPlayback,
+	stopPlayback
+}) => {
+
+	const styleProp = (val) => {
+		return (val) ? '#f2f2f2' : '#ffffff'
+	}
+
+	return (
+	    <div className="control-row">
+	        Oscillator
+	        <button
+	        	style={{ backgroundColor: styleProp(playback) }}
+	        	onClick={ startPlayback }>
+	        	Play
+	        </button>
+	        <button
+	        	style={{ backgroundColor: styleProp(!playback) }}
+	        	onClick={ stopPlayback }>
+	        	Stop
+	        </button>
+	    </div>
+	)
+})
 
 export default Playback
