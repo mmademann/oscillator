@@ -1,4 +1,4 @@
-import { List, Map } from 'immutable'
+import { List, Map, fromJS } from 'immutable'
 
 const oscillatorsReducer = (state = List(), action) => {
 
@@ -11,8 +11,13 @@ const oscillatorsReducer = (state = List(), action) => {
 	// their containers
 
 	// TODO: move ADSR props to envelope {} and merge properly with state
+	// TODO: how do i dispatch multiple actions? using an array?
+	// TODO: figure out how to properly merge state using immutable
 
-	// TODO: how do i parse multiple actions? using an array?
+	// TODO: how do i pass  updateOscillator to the small components
+	// TODO: how to remove containers from small components
+
+	// TODO: clone ADSREnvelope if it already exists
 
     switch (action.type) {
     	case 'ADD_OSCILLATOR':
@@ -26,11 +31,13 @@ const oscillatorsReducer = (state = List(), action) => {
     	        envelope: {},
     	        attackTime: 2.01,
     	        decayTime: 3.3,
-    	        sustainTime: 4.2,
-    	        releaseTime: 3
+    	        sustainTime: 3,
+    	        releaseTime: 4,
+    	        sustainLevel: 0.5,
+    	        gateTime: Infinity
     	    }))
     	case 'UPDATE_OSCILLATOR':
-    		return state.setIn(
+	   		return state.setIn(
     			[index, action.payload.key],
     			action.payload.value
     		)

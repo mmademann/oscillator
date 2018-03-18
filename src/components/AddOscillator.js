@@ -7,7 +7,7 @@ const AddOscillator = withHandlers({
         addOscillator()
     }
 })(({ onSubmit }) => (
-    <div className="add-oscillators">
+    <div className="add-oscillator">
         <form onSubmit={onSubmit}>
         	<button type="submit">Add Oscillator</button>
         </form>

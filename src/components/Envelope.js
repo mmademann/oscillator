@@ -22,7 +22,7 @@ const Envelope = withHandlers({
 			<div className="control-row">
 				<p>Attack:</p>
 				<input
-					type="range" min="0" max="5"
+					type="range" min="0" max="10"
 					name="attackTime"
 					defaultValue={ attackTime }
 					onInput={ updateEnvelope }>
@@ -31,7 +31,7 @@ const Envelope = withHandlers({
 			<div className="control-row">
 				<p>Decay:</p>
 				<input
-					type="range" min="0" max="5"
+					type="range" min="0" max="10"
 					name="decayTime"
 					defaultValue={ decayTime }
 					onInput={ updateEnvelope }>
@@ -40,7 +40,7 @@ const Envelope = withHandlers({
 			<div className="control-row">
 				<p>Sustain</p>
 				<input
-					type="range" min="0" max="5"
+					type="range" min="0" max="10"
 					name="sustainTime"
 					defaultValue={ sustainTime }
 					onInput={ updateEnvelope }>
@@ -49,7 +49,7 @@ const Envelope = withHandlers({
 			<div className="control-row">
 				<p>Release:</p>
 				<input
-					type="range" min="0" max="5"
+					type="range" min="0" max="10"
 					name="releaseTime"
 					defaultValue={ releaseTime }
 					onInput={ updateEnvelope }>

@@ -16,7 +16,7 @@ const WaveformType = withHandlers({
 }) => {
 
 	const activeBg = (val) => {
-		return (waveformType === val) ? '#f2f2f2' : '#ffffff'
+		return (waveformType === val) ? '#ffffff' : '#f1f1f1'
 	}
 
 	return (

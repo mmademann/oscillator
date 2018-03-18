@@ -8,12 +8,17 @@ body p {
 	color:#888;
 }
 
-.add-oscillator input {
-	width:150px;
-	margin-right:10px;
+.add-oscillator button {
+	width:100px;
+	color:#fff;
+	height:30px;
+	border:1px solid #e7e7e7;
+	background: orange;
+	outline:0;
+	border-radius: 6px;
+	cursor: pointer;
 }
 
-.add-oscillator,
 .oscillator-row {
 	border:2px solid #fff;
 	margin: 1%;
@@ -52,11 +57,12 @@ body p {
 	font-weight: 700;
 	border-radius: 5px;
 	color:#808080;
+	background: #f2f2f2;
 }
 
 .control-row button:hover,
 .control-row button:focus {
-	background: #f2f2f2;
+	background: #fff;
 	transition: all .3s ease-in-out;
 	outline:0;
 }
@@ -80,9 +86,9 @@ body p {
 
 ul.keys {
 	height:18.875em;
-	width:34em;
-  	margin:0em auto;
-  	padding:2em 0 0 3em;
+	width:auto;
+  	margin:0;
+  	padding:2em;
   	position:relative;
 }
 
@@ -112,14 +118,14 @@ li { margin:0; padding:0; list-style:none; position:relative; float:left; }
 	z-index:2;
 	border:0px solid #999;
 	border-radius:0 0 6px 6px;
-	background: orange
+	background: orange;
 }
 
 .keys .black:active {
 	background:#222
 }
 
-.w2,.w3,.w4,.w6,.w7 { margin:0 0 0 -1em;  }
+.w2,.w3,.w4,.w6,.w7,.w9,.w10,.w11,.w13,.w14 { margin:0 0 0 -1em;  }
 
 .keys li:first-child { border-radius:5px 0 5px 5px; }
 .keys li:last-child { border-radius:0 5px 5px 5px; }
