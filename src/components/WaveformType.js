@@ -10,15 +10,17 @@ const WaveformType = withHandlers({
 		}, oscId)
 	}
 
-})(({ waveformType, updateWaveformType }) => {
+})(({
+	waveformType,
+	updateWaveformType
+}) => {
 
 	const activeBg = (val) => {
 		return (waveformType === val) ? '#f2f2f2' : '#ffffff'
 	}
 
 	return (
-	    <div className="control-row">
-			Waveform
+	    <div className="control-row waveform">
 			<button
 				style={{ backgroundColor: activeBg('sine') }}
 				value="sine"

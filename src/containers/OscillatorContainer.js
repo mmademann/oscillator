@@ -14,6 +14,8 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 	});
 }
 
+// TODO: how do i pass down updateOscillator to the
+// small components while removing their containers/connect fn
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     	updateOscillator: updateOscillator

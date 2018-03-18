@@ -17,7 +17,6 @@ const Envelope = withHandlers({
 	releaseTime,
 	updateEnvelope
 }) => {
-
 	return (
 	    <div>
 			<div className="control-row">

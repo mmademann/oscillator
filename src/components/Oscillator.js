@@ -1,6 +1,6 @@
 import React from 'react'
 
-import PlaybackContainer from '../containers/PlaybackContainer'
+// import PlaybackContainer from '../containers/PlaybackContainer'
 import WaveformTypeContainer from '../containers/WaveformTypeContainer'
 import FrequencyContainer from '../containers/FrequencyContainer'
 import KeyboardContainer from '../containers/KeyboardContainer'
@@ -30,7 +30,6 @@ class Oscillator extends React.Component {
 	}
 
 	createOscillator() {
-
 		// // resume audio API
 		AUDIO_CONTEXT.resume()
 
@@ -60,29 +59,24 @@ class Oscillator extends React.Component {
 
 	setOscillatorPlayback(playbackTime = AUDIO_CONTEXT.currentTime) {
 		const playback = this.props.oscillator.get('playback')
-
 		if (!this.started && playback) {
-			this.startTime = playbackTime
 			this.createOscillator()
+			this.startTime = playbackTime
 			this.setOscillatorProps()
 			this.oscillatorNode.start(playbackTime)
 			this.started = true
 		} else if (this.started && !playback) {
+			// stop the oscillator after the envelope finishes
 			this.gainNode.gain.cancelScheduledValues(this.startTime)
 			this.envelope.gateTime = playbackTime - this.startTime
 			this.envelope.applyTo(this.gainNode.gain, this.startTime)
-
 			this.oscillatorNode.stop(this.startTime + this.envelope.duration)
 			this.started = false
 		}
 	}
 
-	// TODO: figure out how to handle
-	// start/stop for key press duration
-	handleKeyPress() {}
-
 	setOscillatorFreq() {
-		// set the frequency from props => from state
+		// set the frequency from state
 		this.oscillatorNode.frequency.setValueAtTime(
 			this.props.oscillator.get('frequency'),
 			AUDIO_CONTEXT.currentTime
@@ -90,7 +84,7 @@ class Oscillator extends React.Component {
 	}
 
 	setOscillatorDetune() {
-		// set detune value from props => from state
+		// set detune value from state
 		this.oscillatorNode.detune.setValueAtTime(
 			this.props.oscillator.get('detune'),
 			AUDIO_CONTEXT.currentTime
@@ -98,11 +92,12 @@ class Oscillator extends React.Component {
 	}
 
 	setOscillatorType() {
+		// set the waveform type from state
 		this.oscillatorNode.type = this.props.oscillator.get('waveformType')
 	}
 
 	setGainValue() {
-		// set the gain from props => from state
+		// set the gain value from state
 		this.gainNode.gain.setValueAtTime(
 			(parseInt(this.props.oscillator.get('gain'), 10) / 100),
 			AUDIO_CONTEXT.currentTime
@@ -112,20 +107,13 @@ class Oscillator extends React.Component {
 	setEnvelopeValues() {
 		const { oscillator } = this.props
 		this.envelope = new ADSREnvelope({
-				attackTime: 	oscillator.get('attackTime'),
-				decayTime: 		oscillator.get('decayTime'),
-				sustainTime: 	oscillator.get('sustainTime'),
-				releaseTime: 	oscillator.get('releaseTime'),
-				gateTime: 		oscillator.get('gateTime'),
-				duration: 		oscillator.get('duration'),
-				sustainLevel: 	oscillator.get('sustainLevel'),
-				peakLevel: 		oscillator.get('peakLevel'),
-				epsilon: 		oscillator.get('epsilon'),
-				attackCurve: 	oscillator.get('attackCurve'),
-				decayCurve: 	oscillator.get('decayCurve'),
-				releaseCurve: 	oscillator.get('releaseCurve')
-			})
-
+			attackTime: 	oscillator.get('attackTime'),
+			decayTime: 		oscillator.get('decayTime'),
+			sustainTime: 	oscillator.get('sustainTime'),
+			releaseTime: 	oscillator.get('releaseTime')
+		})
+		// TODO: use a dedicated envelope {} hash in state
+		// TODO: clone ADSREnvelope if it already exists
 		// this.envelope = new ADSREnvelope( this.props.oscillator.get('envelope') )
 		this.envelope.gateTime = Infinity
 		this.envelope.applyTo(this.gainNode.gain, this.startTime)
@@ -135,22 +123,14 @@ class Oscillator extends React.Component {
 		const { oscId, oscillator } = this.props
 		return (
 			<div className="oscillator-row">
-				<PlaybackContainer
-					key={ `play_${oscId}` }
-					oscId={ oscId }
-					playback={ oscillator.get('playback') }
-				/>
 				<WaveformTypeContainer
 					key={ `wave_${oscId}` }
 					oscId={ oscId }
 					waveformType={ oscillator.get('waveformType') }
 				/>
-				<FrequencyContainer
-					key={ `freq_${oscId}` }
+				<KeyboardContainer
+					key={ `keyboard_${oscId}` }
 					oscId={ oscId }
-					frequency={ oscillator.get('frequency') }
-					gain={ oscillator.get('gain') }
-					detune={ oscillator.get('detune') }
 				/>
 				<EnvelopeContainer
 					key={ `adsr_${oscId}` }
@@ -161,9 +141,12 @@ class Oscillator extends React.Component {
 					releaseTime={ oscillator.get('releaseTime') }
 					// envelope={ oscillator.get('envelope') }
 				/>
-				<KeyboardContainer
-					key={ `keyboard_${oscId}` }
+				<FrequencyContainer
+					key={ `freq_${oscId}` }
 					oscId={ oscId }
+					frequency={ oscillator.get('frequency') }
+					gain={ oscillator.get('gain') }
+					detune={ oscillator.get('detune') }
 				/>
 			</div>
 		)

@@ -10,6 +10,10 @@ const oscillatorsReducer = (state = List(), action) => {
 	// pass updateOscillator to your smaller components (Playback, etc..) and you can remove
 	// their containers
 
+	// TODO: move ADSR props to envelope {} and merge properly with state
+
+	// TODO: how do i parse multiple actions? using an array?
+
     switch (action.type) {
     	case 'ADD_OSCILLATOR':
     	    return state.push(Map({
@@ -19,30 +23,17 @@ const oscillatorsReducer = (state = List(), action) => {
     	        frequency: 196,
     	        detune: 100,
     	        gain: 0,
-    	        envelope: {}, // TODO: move ADSR props here and merge with state
+    	        envelope: {},
     	        attackTime: 2.01,
-    	        decayTime: 2.3,
-    	        sustainTime: 1.2,
-    	        releaseTime: 1,
-    	        sustainLevel: 0.5,
-    	        gateTime: 1,
-    	        duration: 1,
-    	        peakLevel: 1,
-    	        epsilon: 0.001,
-    	        attackCurve: 'lin',
-    	        decayCurve: 'lin',
-    	        releaseCurve: 'lin'
+    	        decayTime: 3.3,
+    	        sustainTime: 4.2,
+    	        releaseTime: 3
     	    }))
     	case 'UPDATE_OSCILLATOR':
     		return state.setIn(
     			[index, action.payload.key],
     			action.payload.value
     		)
-        case 'PRESS_KEYBOARD':
-        	return state.setIn(
-        		[index, action.payload.key],
-        		action.payload.value
-        	)
         default:
             return state
     }

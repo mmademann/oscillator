@@ -9,7 +9,13 @@ const Frequency = withHandlers({
 			value: event.target.value // new onInput value
 		}, oscId)
 	}
-})(({ gain, detune, frequency, updateSlider }) => (
+
+})(({
+	gain,
+	detune,
+	frequency,
+	updateSlider
+}) => (
     <div>
 		<div className="control-row">
 			<p>Frequency:</p>

@@ -11,10 +11,4 @@ export const updateOscillator = (payload, id) => ({
 	id
 })
 
-export const pressKeyboard = (payload, id) => ({
-	type: 'PRESS_KEYBOARD',
-	payload,
-	id
-})
-
 export const AUDIO_CONTEXT = new (window.AudioContext || window.webkitAudioContext)()

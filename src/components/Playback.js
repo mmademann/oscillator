@@ -2,6 +2,12 @@ import React from 'react'
 
 import { withHandlers } from 'recompose'
 
+//<PlaybackContainer
+//	key={ `play_${oscId}` }
+//	oscId={ oscId }
+//	playback={ oscillator.get('playback') }
+///>
+
 const Playback = withHandlers({
 
 	togglePlayback: ({ oscId, updateOscillator }) => event => {
@@ -13,15 +19,16 @@ const Playback = withHandlers({
 		}, oscId)
 	}
 
-})(({ playback, togglePlayback }) => {
-
+})(({
+	playback,
+	togglePlayback
+}) => {
 	const activeBg = (val) => {
 		return (val) ? '#f2f2f2' : '#ffffff'
 	}
 
 	return (
 	    <div className="control-row">
-	        Oscillator
 	        <button
 	        	value="start"
 	        	style={{ backgroundColor: activeBg(playback) }}
