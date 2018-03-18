@@ -11,25 +11,38 @@ const oscillatorsReducer = (state = List(), action) => {
 	// their containers
 
     switch (action.type) {
-        case 'ADD_OSCILLATOR':
-            return state.push(Map({
-                id: action.id,
-                waveformType: 'sine',
-                playback: false,
-                frequency: 196,
-                detune: 100,
-                gain: 0
-            }))
-        case 'TOGGLE_PLAYBACK':
-            return state.setIn([index, 'playback'], action.playback)
-        case 'UPDATE_WAVEFORM_TYPE':
-        	return state.setIn([index, 'waveformType'], action.waveformType)
-        case 'UPDATE_FREQUENCY':
-        	return state.setIn([index, 'frequency'], action.frequency)
-        case 'UPDATE_DETUNE':
-        	return state.setIn([index, 'detune'], action.detune)
-       	case 'UPDATE_GAIN':
-       		return state.setIn([index, 'gain'], action.gain)
+    	case 'ADD_OSCILLATOR':
+    	    return state.push(Map({
+    	        id: action.id,
+    	        waveformType: 'sine',
+    	        playback: false,
+    	        frequency: 196,
+    	        detune: 100,
+    	        gain: 0,
+    	        envelope: {}, // TODO: move ADSR props here and merge with state
+    	        attackTime: 2.01,
+    	        decayTime: 2.3,
+    	        sustainTime: 1.2,
+    	        releaseTime: 1,
+    	        sustainLevel: 0.5,
+    	        gateTime: 1,
+    	        duration: 1,
+    	        peakLevel: 1,
+    	        epsilon: 0.001,
+    	        attackCurve: 'lin',
+    	        decayCurve: 'lin',
+    	        releaseCurve: 'lin'
+    	    }))
+    	case 'UPDATE_OSCILLATOR':
+    		return state.setIn(
+    			[index, action.payload.key],
+    			action.payload.value
+    		)
+        case 'PRESS_KEYBOARD':
+        	return state.setIn(
+        		[index, action.payload.key],
+        		action.payload.value
+        	)
         default:
             return state
     }

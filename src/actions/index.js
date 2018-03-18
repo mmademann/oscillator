@@ -5,33 +5,15 @@ export const addOscillator = () => ({
 	id: nextOscillatorId++
 })
 
-export const togglePlayback = (playback, id) => ({
-	type: 'TOGGLE_PLAYBACK',
-	 playback,
-	 id
-})
-
-export const updateWaveformType = (waveformType, id) => ({
-	type: 'UPDATE_WAVEFORM_TYPE',
-	waveformType,
+export const updateOscillator = (payload, id) => ({
+	type: 'UPDATE_OSCILLATOR',
+	payload,
 	id
 })
 
-export const updateFrequency = (frequency, id) => ({
-	type: 'UPDATE_FREQUENCY',
-	frequency,
-	id
-})
-
-export const updateDetune = (detune, id) => ({
-	type: 'UPDATE_DETUNE',
-	detune,
-	id
-})
-
-export const updateGain = (gain, id) => ({
-	type: 'UPDATE_GAIN',
-	gain,
+export const pressKeyboard = (payload, id) => ({
+	type: 'PRESS_KEYBOARD',
+	payload,
 	id
 })
 

@@ -3,15 +3,16 @@ import { withHandlers } from 'recompose'
 
 const WaveformType = withHandlers({
 
-	updateWaveformType: ({ oscId, updateWaveformType }) => event => {
-		const waveType = event.target.value
-
-		updateWaveformType(waveType, oscId)
+	updateWaveformType: ({ oscId, updateOscillator }) => event => {
+		updateOscillator({
+			key: 'waveformType',
+			value: event.target.value
+		}, oscId)
 	}
 
 })(({ waveformType, updateWaveformType }) => {
 
-	const styleProp = (val) => {
+	const activeBg = (val) => {
 		return (waveformType === val) ? '#f2f2f2' : '#ffffff'
 	}
 
@@ -19,25 +20,25 @@ const WaveformType = withHandlers({
 	    <div className="control-row">
 			Waveform
 			<button
-				style={{ backgroundColor: styleProp('sine') }}
+				style={{ backgroundColor: activeBg('sine') }}
 				value="sine"
 				onClick={updateWaveformType}>
 				Sine
 			</button>
 			<button
-				style={{ backgroundColor: styleProp('sawtooth') }}
+				style={{ backgroundColor: activeBg('sawtooth') }}
 				value="sawtooth"
 				onClick={updateWaveformType}>
 				Saw
 			</button>
 			<button
-				style={{ backgroundColor: styleProp('triangle') }}
+				style={{ backgroundColor: activeBg('triangle') }}
 				value="triangle"
 				onClick={updateWaveformType}>
 				Tri
 			</button>
 			<button
-				style={{ backgroundColor: styleProp('square') }}
+				style={{ backgroundColor: activeBg('square') }}
 				value="square"
 				onClick={updateWaveformType}>
 				Square

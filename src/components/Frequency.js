@@ -3,51 +3,39 @@ import { withHandlers } from 'recompose'
 
 const Frequency = withHandlers({
 
-	updateFrequency: ({ oscId, updateFrequency }) => event => {
-		const freq = event.target.value
-		updateFrequency(freq, oscId)
-	},
-
-	updateDetune: ({ oscId, updateDetune }) => event => {
-		const det = event.target.value
-		updateDetune(det, oscId)
-	},
-
-	updateGain: ({ oscId, updateGain }) => event => {
-		const vol = event.target.value
-		updateGain(vol, oscId)
+	updateSlider: ({ oscId, updateOscillator }) => event => {
+		updateOscillator({
+			key: event.target.name, // gain, detune, frequency
+			value: event.target.value // new onInput value
+		}, oscId)
 	}
-})(({
-	frequency,
-	detune,
-	gain,
-	updateFrequency,
-	updateDetune,
-	updateGain
-}) => (
+})(({ gain, detune, frequency, updateSlider }) => (
     <div>
 		<div className="control-row">
 			<p>Frequency:</p>
 			<input
 				type="range" min="0" max="1300"
+				name="frequency"
 				defaultValue={ frequency }
-				onInput={ updateFrequency }>
+				onInput={ updateSlider }>
 			</input>
 		</div>
 		<div className="control-row">
 			<p>Fine Tune:</p>
 			<input
 				type="range" min="-100" max="100"
+				name="detune"
 				defaultValue={ detune }
-				onInput={ updateDetune }>
+				onInput={ updateSlider }>
 			</input>
 		</div>
 		<div className="control-row">
 			<p>Volume</p>
 			<input
 				type="range" min="-150" max="150"
+				name="gain"
 				defaultValue={ gain }
-				onInput={ updateGain }>
+				onInput={ updateSlider }>
 			</input>
 		</div>
 	</div>

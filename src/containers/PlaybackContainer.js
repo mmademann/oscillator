@@ -1,11 +1,6 @@
 import { connect } from 'react-redux'
-import { togglePlayback } from '../actions'
+import { updateOscillator } from '../actions'
 
 import Playback from '../components/Playback'
 
-export default connect(
-	null,
-	{
-		togglePlayback,
-	}
-)(Playback)
+export default connect(null, { updateOscillator })(Playback)

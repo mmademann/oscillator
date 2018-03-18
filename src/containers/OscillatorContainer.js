@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { makeGetOscillatorById } from '../selectors/oscillators'
+import { updateOscillator } from '../actions'
 
 import Oscillator from '../components/Oscillator'
 
@@ -13,9 +14,13 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 	});
 }
 
-// const OscillatorContainer = connect(
-// 	makeMapStateToProps
-// )(Oscillator)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+    	updateOscillator: updateOscillator
+   }
+}
 
-// export default OscillatorContainer
-export default connect(makeMapStateToProps)(Oscillator)
+export default connect(
+	makeMapStateToProps,
+	mapDispatchToProps
+)(Oscillator)

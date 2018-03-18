@@ -1,27 +1,21 @@
 import React from 'react'
+
 import { withHandlers } from 'recompose'
 
 const Playback = withHandlers({
 
-	startPlayback: ({ oscId, togglePlayback }) => event => {
-		const playback = true
-
-		togglePlayback(playback, oscId)
-	},
-
-	stopPlayback: ({ oscId, togglePlayback }) => event => {
-		const playback = false
-
-		togglePlayback(playback, oscId)
+	togglePlayback: ({ oscId, updateOscillator }) => event => {
+		updateOscillator({
+			key: 'playback',
+			value: (event.target.value === 'start')
+				? true
+				: false
+		}, oscId)
 	}
 
-})(({
-	playback,
-	startPlayback,
-	stopPlayback
-}) => {
+})(({ playback, togglePlayback }) => {
 
-	const styleProp = (val) => {
+	const activeBg = (val) => {
 		return (val) ? '#f2f2f2' : '#ffffff'
 	}
 
@@ -29,13 +23,15 @@ const Playback = withHandlers({
 	    <div className="control-row">
 	        Oscillator
 	        <button
-	        	style={{ backgroundColor: styleProp(playback) }}
-	        	onClick={ startPlayback }>
+	        	value="start"
+	        	style={{ backgroundColor: activeBg(playback) }}
+	        	onClick={ togglePlayback }>
 	        	Play
 	        </button>
 	        <button
-	        	style={{ backgroundColor: styleProp(!playback) }}
-	        	onClick={ stopPlayback }>
+	        	value="stop"
+	        	style={{ backgroundColor: activeBg(!playback) }}
+	        	onClick={ togglePlayback }>
 	        	Stop
 	        </button>
 	    </div>
