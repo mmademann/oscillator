@@ -189,6 +189,7 @@ console.log('averageDiscountPrice',averageDiscountPrice)
 // TODO: 	move ADSR props to envelope {} and merge properly with state
 // 			create unique reducer for envelope / filter / etc
 //			add filter/delay/env from native
+//			use basic native env filter (attack/decay)
 //			clone ADSREnvelope if it already exists
 // 			use volume to turn osc sound on/off
 

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 
-export const getOscillators = state => state.oscillators
+export const getOscillators = (state) => state.oscillators
 
 export const getOscillatorIds = createSelector(
 	[getOscillators],
@@ -12,14 +12,9 @@ export const getOscillatorIds = createSelector(
 // component needs its own private copy of the selector.
 // makeGetOscillatorById returns a new copy of a
 // getOscillatorById selector each time it's called.
-export const makeGetOscillatorById = id => createSelector(
-	[getOscillators],
-	oscillators => oscillators.find(oscillator => oscillator.get('id') === id)
-)
-
-// DO NOT USE
-// (depricated... see comments above)
-// export const getOscillatorById = createSelector(
-// 	[getOscillators],
-// 	oscillators => oscillators.find(oscillator => oscillator.get('id') === id)
-// )
+export const makeGetOscillatorById = (id) => {
+	return createSelector(
+		[getOscillators],
+		oscillators => oscillators.find(oscillator => oscillator.get('id') === id)
+	)
+}

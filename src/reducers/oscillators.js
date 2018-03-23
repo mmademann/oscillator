@@ -1,6 +1,7 @@
-import { List, Map, fromJS } from 'immutable'
+import { List, Map } from 'immutable'
 import uuid from 'uuid-v4'
 
+import { DEFAULT_STATE } from '../constants/state'
 import {
 	ADD_OSCILLATOR,
 	UPDATE_OSCILLATOR,
@@ -11,25 +12,10 @@ const oscillatorsReducer = (state = List(), { type, payload = Map() }) => {
 
 	const index = state.findIndex(oscillator => oscillator.get('id') === payload.get('id'))
 
-	const defaultState = Map(fromJS({
-		id: uuid(),
-	    waveformType: 'sine',
-	    playback: false,
-	    frequency: 196,
-	    detune: 100,
-	    gain: 0,
-	    envelope: {
-	    	attackTime: 2,
-	    	decayTime: 4.0,
-	    	sustainTime: 5.0,
-	    	releaseTime: 7.0,
-	    }
-	}))
-
     switch (type) {
     	case ADD_OSCILLATOR:
     	    return state.push(
-    	    	defaultState
+    	    	DEFAULT_STATE.set('id', uuid())
     	    )
     	case UPDATE_OSCILLATOR:
 	   		return state.mergeIn(

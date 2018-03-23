@@ -8,9 +8,6 @@ import Envelope from './Envelope'
 import { AUDIO_CONTEXT } from '../constants/audio'
 import ADSREnvelope from "adsr-envelope";
 
-// TODO: change node gain/volume everytime the key is pressed instead of creating new oscillators
-// TODO: use the native envelope or filter (attack/decay) fn of web audio api
-
 class Oscillator extends React.Component {
 
 	started = false;
@@ -47,8 +44,6 @@ class Oscillator extends React.Component {
 		// connect gain to audio destination
 		this.gainNode.connect(AUDIO_CONTEXT.destination)
 
-		// // comment out for now (based on examples online)
-		// // connect oscillator to audio destination
 		// this.oscillatorNode.connect(AUDIO_CONTEXT.destination)
 	}
 
@@ -109,6 +104,7 @@ class Oscillator extends React.Component {
 	}
 
 	setEnvelopeValues() {
+		// setup the envelope & its properties
 		this.envelope = new ADSREnvelope(
 			this.props.oscillator.get('envelope').toJS()
 		)
@@ -117,7 +113,12 @@ class Oscillator extends React.Component {
 	}
 
 	render () {
-		const { oscId, oscillator, updateOscillator, updateEnvelope } = this.props
+		const {
+			oscId,
+			oscillator,
+			updateOscillator,
+			updateEnvelope
+		} = this.props
 
 		return (
 			<div className="oscillator-row">

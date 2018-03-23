@@ -17,12 +17,15 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 		oscillator: getOscillator(state)
 	})
 
-	// return the function, not an object. each instance
-	// needs a unique oscId and needs to be memoized
+	// return a function, not an object (re: memoization),
+	// because each instance has a unique oscId prop that
 	return mapStateToProps
 }
 
 export default connect(
 	makeMapStateToProps,
-	{ updateOscillator, updateEnvelope }
+	{
+		updateOscillator,
+		updateEnvelope
+	}
 )(Oscillator)
