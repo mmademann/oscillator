@@ -1,13 +1,15 @@
 import React from 'react'
+import { Map } from 'immutable'
+
 import { withHandlers } from 'recompose'
 
 const Frequency = withHandlers({
 
 	updateSlider: ({ oscId, updateOscillator }) => event => {
-		updateOscillator({
-			key: event.target.name, // gain, detune, frequency
-			value: event.target.value // new onInput value
-		}, oscId)
+		updateOscillator(Map({
+			id: oscId,
+			[event.target.name]: event.target.value
+		}))
 	}
 
 })(({
@@ -18,7 +20,7 @@ const Frequency = withHandlers({
 }) => (
     <div>
 		<div className="control-row">
-			<p>Frequency:</p>
+			<p>Frequency: { frequency }</p>
 			<input
 				type="range" min="0" max="1300"
 				name="frequency"
@@ -27,7 +29,7 @@ const Frequency = withHandlers({
 			</input>
 		</div>
 		<div className="control-row">
-			<p>Fine Tune:</p>
+			<p>Detune: { detune }</p>
 			<input
 				type="range" min="-100" max="100"
 				name="detune"
@@ -36,9 +38,9 @@ const Frequency = withHandlers({
 			</input>
 		</div>
 		<div className="control-row">
-			<p>Volume</p>
+			<p>Gain: { `${gain}%` }</p>
 			<input
-				type="range" min="-150" max="150"
+				type="range" min="-100" max="100"
 				name="gain"
 				defaultValue={ gain }
 				onInput={ updateSlider }>

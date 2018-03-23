@@ -1,13 +1,14 @@
 import React from 'react'
+import { Map } from 'immutable'
 import { withHandlers } from 'recompose'
 
 const WaveformType = withHandlers({
 
 	updateWaveformType: ({ oscId, updateOscillator }) => event => {
-		updateOscillator({
-			key: 'waveformType',
-			value: event.target.value
-		}, oscId)
+		updateOscillator(Map({
+			id: oscId,
+			waveformType: event.target.value
+		}))
 	}
 
 })(({

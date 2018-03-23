@@ -1,14 +1,11 @@
-let nextOscillatorId = 0
+import { createAction } from 'redux-actions'
 
-export const addOscillator = () => ({
-	type: 'ADD_OSCILLATOR',
-	id: nextOscillatorId++
-})
+import {
+	ADD_OSCILLATOR,
+	UPDATE_OSCILLATOR,
+	UPDATE_ENVELOPE
+} from '../constants/actionTypes'
 
-export const updateOscillator = (payload, id) => ({
-	type: 'UPDATE_OSCILLATOR',
-	payload,
-	id
-})
-
-export const AUDIO_CONTEXT = new (window.AudioContext || window.webkitAudioContext)()
+export const addOscillator = createAction(ADD_OSCILLATOR)
+export const updateOscillator = createAction(UPDATE_OSCILLATOR)
+export const updateEnvelope = createAction(UPDATE_ENVELOPE)

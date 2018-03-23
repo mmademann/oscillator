@@ -1,25 +1,22 @@
 import React from 'react'
+import { Map } from 'immutable'
 import { withHandlers } from 'recompose'
 
 const Keyboard = withHandlers({
 
 	pianoKeyDown: ({ oscId, updateOscillator }) => event => {
-		// TODO: dispatch multiple actions in one call
-		updateOscillator({
-			key: 'frequency',
-			value: event.target.value
-		}, oscId)
-		updateOscillator({
-			key: 'playback',
-			value: true
-		}, oscId)
+		updateOscillator(Map({
+			id: oscId,
+			frequency: event.target.value,
+			playback: true
+		}))
 	},
 
 	pianoKeyUp: ({ oscId, updateOscillator }) => event => {
-		updateOscillator({
-			key: 'playback',
-			value: false
-		}, oscId)
+		updateOscillator(Map({
+			id: oscId,
+			playback: false
+		}))
 	}
 
 })(({

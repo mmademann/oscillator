@@ -1,57 +1,58 @@
 import React from 'react'
+import { Map, fromJS } from 'immutable'
 import { withHandlers } from 'recompose'
 
 const Envelope = withHandlers({
 
-	updateEnvelope: ({ oscId, updateOscillator }) => event => {
-		updateOscillator({
-			key: event.target.name,
-			value: event.target.value
-		}, oscId)
+	updateEnvelope: ({ oscId, updateEnvelope }) => event => {
+		const input = event.target
+		const payload = Map(fromJS({
+			id: oscId,
+			envelope: { [input.name]: input.value }
+		}))
+
+		updateEnvelope(payload)
 	}
 
 })(({
-	attackTime,
-	decayTime,
-	sustainTime,
-	releaseTime,
+	envelope,
 	updateEnvelope
 }) => {
 	return (
 	    <div>
 			<div className="control-row">
-				<p>Attack:</p>
+				<p>Attack: { envelope.get('attackTime') }</p>
 				<input
 					type="range" min="0" max="10"
 					name="attackTime"
-					defaultValue={ attackTime }
+					defaultValue={ envelope.get('attackTime') }
 					onInput={ updateEnvelope }>
 				</input>
 			</div>
 			<div className="control-row">
-				<p>Decay:</p>
+				<p>Decay: { envelope.get('decayTime') }</p>
 				<input
 					type="range" min="0" max="10"
 					name="decayTime"
-					defaultValue={ decayTime }
+					defaultValue={ envelope.get('decayTime') }
 					onInput={ updateEnvelope }>
 				</input>
 			</div>
 			<div className="control-row">
-				<p>Sustain</p>
+				<p>Sustain: { envelope.get('sustainTime') }</p>
 				<input
 					type="range" min="0" max="10"
 					name="sustainTime"
-					defaultValue={ sustainTime }
+					defaultValue={ envelope.get('sustainTime') }
 					onInput={ updateEnvelope }>
 				</input>
 			</div>
 			<div className="control-row">
-				<p>Release:</p>
+				<p>Release: { envelope.get('releaseTime') }</p>
 				<input
 					type="range" min="0" max="10"
 					name="releaseTime"
-					defaultValue={ releaseTime }
+					defaultValue={ envelope.get('releaseTime') }
 					onInput={ updateEnvelope }>
 				</input>
 			</div>

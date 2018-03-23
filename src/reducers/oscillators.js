@@ -1,48 +1,45 @@
 import { List, Map, fromJS } from 'immutable'
+import uuid from 'uuid-v4'
 
-const oscillatorsReducer = (state = List(), action) => {
+import {
+	ADD_OSCILLATOR,
+	UPDATE_OSCILLATOR,
+	UPDATE_ENVELOPE
+} from '../constants/actionTypes'
 
-	const index = state.findIndex(oscillator => oscillator.get('id') === action.id)
+const oscillatorsReducer = (state = List(), { type, payload = Map() }) => {
 
-	// TODO: make one updateOscillator function just do something like:
-	// return state.merge(action.payload) (pass an immutable Map() as the payload)
-	// then connect updateOscillator in OscillatorContainer (with mapDispatchToProps)
-	// pass updateOscillator to your smaller components (Playback, etc..) and you can remove
-	// their containers
+	const index = state.findIndex(oscillator => oscillator.get('id') === payload.get('id'))
 
-	// TODO: move ADSR props to envelope {} and merge properly with state
-	// TODO: how do i dispatch multiple actions? using an array?
-	// TODO: figure out how to properly merge state using immutable
+	const defaultState = Map(fromJS({
+		id: uuid(),
+	    waveformType: 'sine',
+	    playback: false,
+	    frequency: 196,
+	    detune: 100,
+	    gain: 0,
+	    envelope: {
+	    	attackTime: 2,
+	    	decayTime: 4.0,
+	    	sustainTime: 5.0,
+	    	releaseTime: 7.0,
+	    }
+	}))
 
-	// TODO: how do i pass  updateOscillator to the small components
-	// TODO: how to remove containers from small components
-
-	// TODO: clone ADSREnvelope if it already exists
-
-    switch (action.type) {
-    	case 'ADD_OSCILLATOR':
-    	    return state.push(Map({
-    	        id: action.id,
-    	        waveformType: 'sine',
-    	        playback: false,
-    	        frequency: 196,
-    	        detune: 100,
-    	        gain: 0,
-    	        envelope: {},
-    	        attackTime: 2.01,
-    	        decayTime: 3.3,
-    	        sustainTime: 3,
-    	        releaseTime: 4,
-    	        sustainLevel: 0.5,
-    	        gateTime: Infinity
-    	    }))
-    	case 'UPDATE_OSCILLATOR':
-	   		return state.setIn(
-    			[index, action.payload.key],
-    			action.payload.value
-    		)
-        default:
-            return state
+    switch (type) {
+    	case ADD_OSCILLATOR:
+    	    return state.push(
+    	    	defaultState
+    	    )
+    	case UPDATE_OSCILLATOR:
+	   		return state.mergeIn(
+	   			[index], payload
+	   		)
+    	case UPDATE_ENVELOPE:
+	   		return state.mergeDeepIn(
+	   			[index], payload
+	   		)
+        default: return state
     }
 }
 

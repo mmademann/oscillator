@@ -13,7 +13,7 @@ body p {
 	color:#fff;
 	height:30px;
 	border:1px solid #e7e7e7;
-	background: orange;
+	background: #888;
 	outline:0;
 	border-radius: 6px;
 	cursor: pointer;
@@ -80,7 +80,7 @@ body p {
 	line-height: 0pt;
 	margin:10px;
 	float:left;
-	width:70px;
+	width:120px;
 }
 * { box-sizing:border-box; }
 
@@ -118,7 +118,7 @@ li { margin:0; padding:0; list-style:none; position:relative; float:left; }
 	z-index:2;
 	border:0px solid #999;
 	border-radius:0 0 6px 6px;
-	background: orange;
+	background: #666;
 }
 
 .keys .black:active {

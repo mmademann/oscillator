@@ -1,13 +1,15 @@
 import React from 'react'
 
-// import PlaybackContainer from '../containers/PlaybackContainer'
-import WaveformTypeContainer from '../containers/WaveformTypeContainer'
-import FrequencyContainer from '../containers/FrequencyContainer'
-import KeyboardContainer from '../containers/KeyboardContainer'
-import EnvelopeContainer from '../containers/EnvelopeContainer'
+import WaveformType from './WaveformType'
+import Frequency from './Frequency'
+import Keyboard from './Keyboard'
+import Envelope from './Envelope'
 
-import { AUDIO_CONTEXT } from '../actions'
+import { AUDIO_CONTEXT } from '../constants/audio'
 import ADSREnvelope from "adsr-envelope";
+
+// TODO: change node gain/volume everytime the key is pressed instead of creating new oscillators
+// TODO: use the native envelope or filter (attack/decay) fn of web audio api
 
 class Oscillator extends React.Component {
 
@@ -45,8 +47,9 @@ class Oscillator extends React.Component {
 		// connect gain to audio destination
 		this.gainNode.connect(AUDIO_CONTEXT.destination)
 
-		// connect oscillator to audio destination
-		this.oscillatorNode.connect(AUDIO_CONTEXT.destination)
+		// // comment out for now (based on examples online)
+		// // connect oscillator to audio destination
+		// this.oscillatorNode.connect(AUDIO_CONTEXT.destination)
 	}
 
 	setOscillatorProps() {
@@ -59,6 +62,7 @@ class Oscillator extends React.Component {
 
 	setOscillatorPlayback(playbackTime = AUDIO_CONTEXT.currentTime) {
 		const playback = this.props.oscillator.get('playback')
+
 		if (!this.started && playback) {
 			this.createOscillator()
 			this.startTime = playbackTime
@@ -105,48 +109,42 @@ class Oscillator extends React.Component {
 	}
 
 	setEnvelopeValues() {
-		const { oscillator } = this.props
-		this.envelope = new ADSREnvelope({
-			attackTime: 	oscillator.get('attackTime'),
-			decayTime: 		oscillator.get('decayTime'),
-			sustainTime: 	oscillator.get('sustainTime'),
-			releaseTime: 	oscillator.get('releaseTime')
-		})
-		// TODO: use a dedicated envelope {} hash in state
-		// TODO: clone ADSREnvelope if it already exists
-		// this.envelope = new ADSREnvelope( this.props.oscillator.get('envelope') )
+		this.envelope = new ADSREnvelope(
+			this.props.oscillator.get('envelope').toJS()
+		)
 		this.envelope.gateTime = Infinity
 		this.envelope.applyTo(this.gainNode.gain, this.startTime)
 	}
 
 	render () {
-		const { oscId, oscillator } = this.props
+		const { oscId, oscillator, updateOscillator, updateEnvelope } = this.props
+
 		return (
 			<div className="oscillator-row">
-				<WaveformTypeContainer
+				<WaveformType
 					key={ `wave_${oscId}` }
 					oscId={ oscId }
 					waveformType={ oscillator.get('waveformType') }
+					updateOscillator={ updateOscillator }
 				/>
-				<KeyboardContainer
+				<Keyboard
 					key={ `keyboard_${oscId}` }
 					oscId={ oscId }
+					updateOscillator={ updateOscillator }
 				/>
-				<EnvelopeContainer
+				<Envelope
 					key={ `adsr_${oscId}` }
 					oscId={ oscId }
-					attackTime={ oscillator.get('attackTime') }
-					decayTime={ oscillator.get('decayTime') }
-					sustainTime={ oscillator.get('sustainTime') }
-					releaseTime={ oscillator.get('releaseTime') }
-					// envelope={ oscillator.get('envelope') }
+					envelope={ oscillator.get('envelope') }
+					updateEnvelope={ updateEnvelope }
 				/>
-				<FrequencyContainer
+				<Frequency
 					key={ `freq_${oscId}` }
 					oscId={ oscId }
 					frequency={ oscillator.get('frequency') }
 					gain={ oscillator.get('gain') }
 					detune={ oscillator.get('detune') }
+					updateOscillator={ updateOscillator }
 				/>
 			</div>
 		)
