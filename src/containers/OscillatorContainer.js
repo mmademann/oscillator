@@ -17,7 +17,7 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 		oscillator: getOscillator(state)
 	})
 
-	// return a function, not an object (re: memoization),
+	// return a function, not an object (to be memoized),
 	// because each instance needs its own unique selector
 	return mapStateToProps
 }
