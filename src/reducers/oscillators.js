@@ -10,28 +10,27 @@ import {
 
 const oscillatorsReducer = (state = List(), { type, payload = Map(), id = uuid() }) => {
 
-    const index = state.findIndex(oscillator => oscillator.get('id') === payload.get('id'))
+    const index = state.findIndex(
+        oscillator => oscillator.get('id') === payload.get('id')
+    )
 
     switch (type) {
+
         case ADD_OSCILLATOR:
-            // return the default state
-            // with a new unique id
-            return state.set(
-                state.size,
-                DEFAULT_STATE.set('id', id)
-            )
+            // return the default obj at
+            // the end of the state List
+            return state.push( DEFAULT_STATE.set('id', id) )
+
         case UPDATE_OSCILLATOR:
-            // return a shallow merge of the
-            // payload into the existing state
-            return state.mergeIn(
-                [index], payload
-            )
+            // return a shallow merge of the payload
+            // into the existing state at index
+            return state.mergeIn( [index], payload )
+
         case UPDATE_ENVELOPE:
             // return a deep merge of the envelope
-            // obj payload into the existing state
-            return state.mergeDeepIn(
-                [index], payload
-            )
+            // properties into the existing state at index
+            return state.mergeDeepIn( [index], payload )
+
         default: return state
     }
 }
