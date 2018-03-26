@@ -259,3 +259,24 @@ const oscillatorsReducer = (state = List(), { type, payload = Map(), id = uuid()
 }
 
 export default oscillatorsReducer
+
+
+{
+    "color_scheme": "Packages/Babel/Monokai Phoenix.tmTheme",
+    "detect_indentation": true,
+    "ensure_single_trailing_newline": true,
+    "font_size": 18,
+    "ignore_whitespace_on_current_line": true,
+    "ignore_whitespace_only_lines": false,
+    "ignored_packages":
+    [
+        "Vintage"
+    ],
+    "remove_trailing_whitespace_on_save": true,
+    "tab_size": 4,
+    "theme": "Adaptive.sublime-theme",
+    "trim_trailing_white_space_on_save": true,
+    "trim_automatic_white_space": true,
+    "translate_tabs_to_spaces": true
+
+}
