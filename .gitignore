@@ -5,6 +5,10 @@
 
 # testing
 /coverage
+#build
+
+#experiments
+/src/components/experiments.js
 
 # backups
 /backups
