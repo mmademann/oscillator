@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions'
 
 import {
-	ADD_OSCILLATOR,
-	UPDATE_OSCILLATOR,
-	UPDATE_ENVELOPE
+    ADD_OSCILLATOR,
+    UPDATE_OSCILLATOR,
+    UPDATE_ENVELOPE
 } from '../constants/actionTypes'
 
 export const addOscillator = createAction(ADD_OSCILLATOR)

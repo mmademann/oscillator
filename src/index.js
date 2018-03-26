@@ -9,8 +9,8 @@ import './index.css';
 const store = createStore(reducers)
 
 render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
-	document.getElementById('app')
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('app')
 )

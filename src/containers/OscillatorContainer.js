@@ -11,21 +11,21 @@ import Oscillator from '../components/Oscillator'
 // for each instance of the container.
 const makeMapStateToProps = (initialState, { oscId }) => {
 
-	const getOscillator = makeGetOscillatorById(oscId);
+    const getOscillator = makeGetOscillatorById(oscId);
 
-	const mapStateToProps = (state) => ({
-		oscillator: getOscillator(state)
-	})
+    const mapStateToProps = (state) => ({
+        oscillator: getOscillator(state)
+    })
 
-	// return a function, not an object (to be memoized),
-	// because each instance needs its own unique selector
-	return mapStateToProps
+    // return a function, not an object (to be memoized),
+    // because each instance needs its own unique selector
+    return mapStateToProps
 }
 
 export default connect(
-	makeMapStateToProps,
-	{
-		updateOscillator,
-		updateEnvelope
-	}
+    makeMapStateToProps,
+    {
+        updateOscillator,
+        updateEnvelope
+    }
 )(Oscillator)

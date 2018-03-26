@@ -3,8 +3,8 @@ import { createSelector } from 'reselect'
 export const getOscillators = (state) => state.oscillators
 
 export const getOscillatorIds = createSelector(
-	[getOscillators],
-	oscillators => oscillators.map(oscillator => oscillator.get('id'))
+    [getOscillators],
+    oscillators => oscillators.map(oscillator => oscillator.get('id'))
 )
 
 // in order to share a selector across multiple Oscillator
@@ -13,8 +13,8 @@ export const getOscillatorIds = createSelector(
 // makeGetOscillatorById returns a new copy of a
 // getOscillatorById selector each time it's called.
 export const makeGetOscillatorById = (id) => {
-	return createSelector(
-		[getOscillators],
-		oscillators => oscillators.find(oscillator => oscillator.get('id') === id)
-	)
+    return createSelector(
+        [getOscillators],
+        oscillators => oscillators.find(oscillator => oscillator.get('id') === id)
+    )
 }
