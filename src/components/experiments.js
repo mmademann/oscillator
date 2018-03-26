@@ -119,7 +119,7 @@ const indexOfListingToUpdate = book.get('storeListings').findIndex(listing =>
 const findIndexerFromJS = (storeId, listings) => {
 	for (let [index, listing] of listings.entries()) {
 		if (listing.storeId === storeId) {
-      		return { listing, index };
+      		return { listing, index }
     	}
   	}
 }
@@ -188,8 +188,7 @@ console.log('averageDiscountPrice',averageDiscountPrice)
 
 // TODO: 	move ADSR props to envelope {} and merge properly with state
 // 			create unique reducer for envelope / filter / etc
-//			add filter/delay/env from native
-//			use basic native env filter (attack/decay)
+//			add filter/delay/env from native (basic attack/decay)
 //			clone ADSREnvelope if it already exists
 // 			use volume to turn osc sound on/off
 
@@ -215,3 +214,48 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 		oscillator: getOscillator(state),
 	});
 }
+
+
+const oscillatorsReducer = (state = List(), { type, payload = Map(), id = uuid() }) => {
+
+	const index = state.findIndex(oscillator => oscillator.get('id') === payload.get('id'))
+
+    switch (type) {
+    	case ADD_OSCILLATOR:
+
+	    	const updatedState = state.set(
+	    		state.size,
+	    		DEFAULT_STATE.set('id', id)
+	    	)
+
+	    	const updatedState = state.concat(
+	    		[ DEFAULT_STATE.set('id', id) ]
+	    	)
+
+	    	return state.push(
+	    		DEFAULT_STATE.set('id', id)
+	    	)
+
+	    	// return [
+	    	// 	...state
+	    	// 	{
+	    	// 		id: id
+	    	// 	}
+	    	// ]
+
+    		// doesn't work, update works on maps only:
+    		// return state.merge( DEFAULT_STATE.set('id', id) )
+
+    	case UPDATE_OSCILLATOR:
+	   		return state.mergeIn(
+	   			[index], payload
+	   		)
+    	case UPDATE_ENVELOPE:
+	   		return state.mergeDeepIn(
+	   			[index], payload
+	   		)
+        default: return state
+    }
+}
+
+export default oscillatorsReducer

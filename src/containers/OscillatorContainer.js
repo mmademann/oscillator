@@ -18,7 +18,7 @@ const makeMapStateToProps = (initialState, { oscId }) => {
 	})
 
 	// return a function, not an object (re: memoization),
-	// because each instance has a unique oscId prop that
+	// because each instance needs its own unique selector
 	return mapStateToProps
 }
 

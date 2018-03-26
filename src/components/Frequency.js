@@ -1,6 +1,5 @@
 import React from 'react'
 import { Map } from 'immutable'
-
 import { withHandlers } from 'recompose'
 
 const Frequency = withHandlers({
