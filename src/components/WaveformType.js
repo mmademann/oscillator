@@ -7,11 +7,12 @@ const WaveformType = withHandlers({
     updateWaveformType: ({ oscId, updateOscillator }) => event => {
         updateOscillator(Map({
             id: oscId,
-            waveformType: event.target.value
+            [event.target.name]: event.target.value
         }))
     }
 
 })(({
+    waveShape,
     waveformType,
     updateWaveformType
 }) => {
@@ -25,24 +26,28 @@ const WaveformType = withHandlers({
             <button
                 style={{ backgroundColor: activeBg('sine') }}
                 value="sine"
+                name="waveformType"
                 onClick={updateWaveformType}>
                 Sine
             </button>
             <button
                 style={{ backgroundColor: activeBg('sawtooth') }}
                 value="sawtooth"
+                name="waveformType"
                 onClick={updateWaveformType}>
                 Saw
             </button>
             <button
                 style={{ backgroundColor: activeBg('triangle') }}
                 value="triangle"
+                name="waveformType"
                 onClick={updateWaveformType}>
                 Tri
             </button>
             <button
                 style={{ backgroundColor: activeBg('square') }}
                 value="square"
+                name="waveformType"
                 onClick={updateWaveformType}>
                 Square
             </button>

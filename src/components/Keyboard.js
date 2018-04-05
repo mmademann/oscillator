@@ -1,6 +1,7 @@
 import React from 'react'
 import { Map } from 'immutable'
 import { withHandlers } from 'recompose'
+import { KEYCODES } from '../constants/audio'
 
 const Keyboard = withHandlers({
 
@@ -17,12 +18,37 @@ const Keyboard = withHandlers({
             id: oscId,
             playback: false
         }))
+    },
+
+    keypressHandler: ({ oscId, updateOscillator }) => event => {
+        updateOscillator(Map({
+            id: oscId,
+            playback: true,
+            frequency: KEYCODES
+                .find(keycode => keycode.get('code') === event.code)
+                .get('frequency')
+        }))
+    },
+
+    keyupHandler: ({ oscId, updateOscillator }) => event => {
+        updateOscillator(Map({
+            id: oscId,
+            playback: false
+        }))
     }
 
 })(({
     pianoKeyDown,
-    pianoKeyUp
+    pianoKeyUp,
+    keyupHandler,
+    keypressHandler
 }) => {
+
+    // todo: hook up computer keys to piano keys
+    // question: is this the right way to do this?
+    document.onkeypress = keypressHandler
+    document.onkeyup = keyupHandler
+
     return (
         <ul className="keys">
             <li

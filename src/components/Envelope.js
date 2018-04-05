@@ -1,17 +1,16 @@
 import React from 'react'
-import { Map, fromJS } from 'immutable'
+import { fromJS } from 'immutable'
 import { withHandlers } from 'recompose'
 
 const Envelope = withHandlers({
 
-    updateEnvelope: ({ oscId, updateEnvelope }) => event => {
+    updateEnvelope: ({ oscId, updateOscillatorDeep }) => event => {
         const input = event.target
-        const payload = Map(fromJS({
+        const payload = fromJS({
             id: oscId,
             envelope: { [input.name]: input.value }
-        }))
-
-        updateEnvelope(payload)
+        })
+        updateOscillatorDeep(payload)
     }
 
 })(({

@@ -4,24 +4,24 @@ import WaveformType from './WaveformType'
 import Frequency from './Frequency'
 import Keyboard from './Keyboard'
 import Envelope from './Envelope'
+import WaveShape from './WaveShape'
 
+import { makeDistortionCurve } from '../tools'
 import { AUDIO_CONTEXT } from '../constants/audio'
 import ADSREnvelope from "adsr-envelope";
 
 class Oscillator extends React.Component {
 
-    started = false;
-    startTime = 0;
+    started = false
+    startTime = 0
 
     componentDidMount() {
         this.createOscillator()
-        this.setOscillatorProps()
-        this.setOscillatorPlayback()
     }
 
     componentDidUpdate() {
-        this.setOscillatorProps()
         this.setOscillatorPlayback()
+        this.setOscillatorProps()
     }
 
     componentWillUnmount() {
@@ -29,53 +29,67 @@ class Oscillator extends React.Component {
     }
 
     createOscillator() {
-        // // resume audio API
+        // // resume audio context
         AUDIO_CONTEXT.resume()
 
-        // initialize the gain for volume controll
-        this.gainNode = AUDIO_CONTEXT.createGain()
-
-        // initialize the oscillator
+        // create the oscillator (audio source)
         this.oscillatorNode = AUDIO_CONTEXT.createOscillator()
+
+        // create distortion node
+        this.waveShapeNode = AUDIO_CONTEXT.createWaveShaper()
+
+        // create gain node
+        this.gainNode = AUDIO_CONTEXT.createGain()
 
         //connect oscillator to gain
         this.oscillatorNode.connect(this.gainNode)
 
+        // connect source to wave shaper
+        this.oscillatorNode.connect(this.waveShapeNode)
+
+        // connect wave shaper to gain
+        this.waveShapeNode.connect(this.gainNode)
+
         // connect gain to audio destination
         this.gainNode.connect(AUDIO_CONTEXT.destination)
-
-        // this.oscillatorNode.connect(AUDIO_CONTEXT.destination)
     }
 
     setOscillatorProps() {
         this.setOscillatorFreq()
         this.setOscillatorDetune()
         this.setOscillatorType()
-        this.setGainValue()
+        // this.setGainValue()
         this.setEnvelopeValues()
+        this.setWaveShapeCurve()
     }
 
-    setOscillatorPlayback(playbackTime = AUDIO_CONTEXT.currentTime) {
-        const playback = this.props.oscillator.get('playback')
+    setOscillatorPlayback() {
+        const isPlaying = this.props.oscillator.get('playback')
 
-        if (!this.started && playback) {
-            this.createOscillator()
-            this.startTime = playbackTime
-            this.setOscillatorProps()
-            this.oscillatorNode.start(playbackTime)
-            this.started = true
-        } else if (this.started && !playback) {
-            // stop the oscillator after the envelope finishes
-            this.gainNode.gain.cancelScheduledValues(this.startTime)
-            this.envelope.gateTime = playbackTime - this.startTime
-            this.envelope.applyTo(this.gainNode.gain, this.startTime)
-            this.oscillatorNode.stop(this.startTime + this.envelope.duration)
-            this.started = false
-        }
+        if (!this.started && isPlaying)
+            this.playOscillator()
+
+        else if (this.started && !isPlaying)
+            this.stopOscillator()
+    }
+
+    playOscillator(playbackTime = AUDIO_CONTEXT.currentTime) {
+        this.createOscillator()
+        this.setOscillatorProps()
+        this.startTime = playbackTime
+        this.oscillatorNode.start(playbackTime)
+        this.started = true
+    }
+
+    stopOscillator(playbackTime = AUDIO_CONTEXT.currentTime) {
+        this.gainNode.gain.cancelScheduledValues(this.startTime)
+        this.envelope.gateTime = playbackTime - this.startTime
+        this.envelope.applyTo(this.gainNode.gain, this.startTime)
+        this.oscillatorNode.stop(this.startTime + this.envelope.duration)
+        this.started = false
     }
 
     setOscillatorFreq() {
-        // set the frequency from state
         this.oscillatorNode.frequency.setValueAtTime(
             this.props.oscillator.get('frequency'),
             AUDIO_CONTEXT.currentTime
@@ -83,7 +97,6 @@ class Oscillator extends React.Component {
     }
 
     setOscillatorDetune() {
-        // set detune value from state
         this.oscillatorNode.detune.setValueAtTime(
             this.props.oscillator.get('detune'),
             AUDIO_CONTEXT.currentTime
@@ -91,20 +104,17 @@ class Oscillator extends React.Component {
     }
 
     setOscillatorType() {
-        // set the waveform type from state
         this.oscillatorNode.type = this.props.oscillator.get('waveformType')
     }
 
-    setGainValue() {
-        // set the gain value from state
-        this.gainNode.gain.setValueAtTime(
-            (parseInt(this.props.oscillator.get('gain'), 10) / 100),
-            AUDIO_CONTEXT.currentTime
-        )
+    setWaveShapeCurve() {
+        const { status, amount } = this.props.oscillator.get('waveShape').toJS()
+        this.waveShapeNode.curve = (status === 'disabled')
+            ? new Float32Array(2)
+            : makeDistortionCurve(amount)
     }
 
     setEnvelopeValues() {
-        // setup the envelope & its properties
         this.envelope = new ADSREnvelope(
             this.props.oscillator.get('envelope').toJS()
         )
@@ -112,12 +122,19 @@ class Oscillator extends React.Component {
         this.envelope.applyTo(this.gainNode.gain, this.startTime)
     }
 
+    setGainValue() {
+        this.gainNode.gain.setValueAtTime(
+            this.props.oscillator.get('gain') / 100,
+            AUDIO_CONTEXT.currentTime
+        )
+    }
+
     render () {
         const {
             oscId,
             oscillator,
             updateOscillator,
-            updateEnvelope
+            updateOscillatorDeep,
         } = this.props
 
         return (
@@ -126,6 +143,7 @@ class Oscillator extends React.Component {
                     key={ `wave_${oscId}` }
                     oscId={ oscId }
                     waveformType={ oscillator.get('waveformType') }
+                    waveShape={ oscillator.get('waveShape') }
                     updateOscillator={ updateOscillator }
                 />
                 <Keyboard
@@ -133,11 +151,17 @@ class Oscillator extends React.Component {
                     oscId={ oscId }
                     updateOscillator={ updateOscillator }
                 />
+                <WaveShape
+                    key={ `shape_${oscId}` }
+                    oscId={ oscId }
+                    waveShape={ oscillator.get('waveShape') }
+                    updateOscillatorDeep={ updateOscillatorDeep }
+                />
                 <Envelope
                     key={ `adsr_${oscId}` }
                     oscId={ oscId }
                     envelope={ oscillator.get('envelope') }
-                    updateEnvelope={ updateEnvelope }
+                    updateOscillatorDeep={ updateOscillatorDeep }
                 />
                 <Frequency
                     key={ `freq_${oscId}` }

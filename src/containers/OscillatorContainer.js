@@ -1,7 +1,10 @@
 import { connect } from 'react-redux'
 
 import { makeGetOscillatorById } from '../selectors/oscillators'
-import { updateOscillator, updateEnvelope } from '../actions'
+import {
+    updateOscillator,
+    updateOscillatorDeep,
+} from '../actions'
 
 import Oscillator from '../components/Oscillator'
 
@@ -17,8 +20,8 @@ const makeMapStateToProps = (initialState, { oscId }) => {
         oscillator: getOscillator(state)
     })
 
-    // return a function, not an object (to be memoized),
-    // because each instance needs its own unique selector
+    // return a function, not an object (re: memoized),
+    // since each instance needs its own unique selector
     return mapStateToProps
 }
 
@@ -26,6 +29,6 @@ export default connect(
     makeMapStateToProps,
     {
         updateOscillator,
-        updateEnvelope
+        updateOscillatorDeep,
     }
 )(Oscillator)

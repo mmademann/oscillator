@@ -14,6 +14,7 @@ const Frequency = withHandlers({
 })(({
     gain,
     detune,
+    waveShape,
     frequency,
     updateSlider
 }) => (
@@ -39,7 +40,7 @@ const Frequency = withHandlers({
         <div className="control-row">
             <p>Gain: { `${gain}%` }</p>
             <input
-                type="range" min="-100" max="100"
+                type="range" min="0" max="100"
                 name="gain"
                 defaultValue={ gain }
                 onInput={ updateSlider }>

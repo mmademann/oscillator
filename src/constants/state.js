@@ -1,6 +1,6 @@
-import { Map, fromJS } from 'immutable'
+import { fromJS } from 'immutable'
 
-export const DEFAULT_STATE = Map(fromJS({
+export const DEFAULT_STATE = fromJS({
     waveformType: 'sine',
     playback: false,
     frequency: 196,
@@ -11,5 +11,9 @@ export const DEFAULT_STATE = Map(fromJS({
         decayTime: 4.0,
         sustainTime: 5.0,
         releaseTime: 7.0,
+    },
+    waveShape: {
+        status: 'disabled',
+        amount: 30
     }
-}))
+})
